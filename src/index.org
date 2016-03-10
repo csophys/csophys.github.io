@@ -1,4 +1,5 @@
-#+TITLE:csophys 的技术小结
+#+TITLE:csophys 的技术博客
+#+SETUPFILE: ../theme/readtheorg/readTheOrg_local.setup
 * DB
-** DB读写分离，分库分表设计思路
+** [[file:java_DB.org][Java DB load balance 设计]]
 
