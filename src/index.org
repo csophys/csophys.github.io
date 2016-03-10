@@ -1,5 +1,9 @@
 #+TITLE:csophys 的技术博客
 #+SETUPFILE: ../theme/readtheorg/readTheOrg_local.setup
+
+* DB
+** [[file:java_DB.org][Java DB load balance 设计]]
+
 #+BEGIN_HTML
     <div id="disqus_thread"></div>
     <script>
@@ -24,6 +28,3 @@
 </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 #+END_HTML
-* DB
-** [[file:java_DB.org][Java DB load balance 设计]]
-
