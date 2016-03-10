@@ -116,22 +116,6 @@ public class MyDataSource implements DataSource {
 * Footnotes
 
 [fn:3] http://blog.csdn.net/jiangwei0910410003/article/details/26143977
-
-[fn:2] 
-#+BEGIN_SRC java
-com.mchange.v2.c3p0.DriverManagerDataSource
-   
-    private synchronized Driver driver() throws SQLException
-    {
-        //System.err.println( "driver() <-- " + this );
-        if (driver == null)
-            driver = DriverManager.getDriver( jdbcUrl );
-        return driver;
-    }
-#+END_SRC
-
-[fn:1] http://baike.baidu.com/link?url=cEr3FqbNBesrOz4hWQEfCk2NEdERHsYsYQ0WrrxS130zvUyzb7S-j45naPPZa390XQent-BbDCb89N-bo57yxK
-
 #+BEGIN_HTML
     <div id="disqus_thread"></div>
     <script>
@@ -156,4 +140,20 @@ com.mchange.v2.c3p0.DriverManagerDataSource
 </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 #+END_HTML
+[fn:2] 
+#+BEGIN_SRC java
+com.mchange.v2.c3p0.DriverManagerDataSource
+   
+    private synchronized Driver driver() throws SQLException
+    {
+        //System.err.println( "driver() <-- " + this );
+        if (driver == null)
+            driver = DriverManager.getDriver( jdbcUrl );
+        return driver;
+    }
+#+END_SRC
+
+[fn:1] http://baike.baidu.com/link?url=cEr3FqbNBesrOz4hWQEfCk2NEdERHsYsYQ0WrrxS130zvUyzb7S-j45naPPZa390XQent-BbDCb89N-bo57yxK
+
+
 
