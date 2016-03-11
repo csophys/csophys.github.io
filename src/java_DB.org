@@ -1,5 +1,6 @@
 #+TITLE: [[file:java_DB.org][Java DB load balance 设计]]
 #+SETUPFILE: ../theme/readtheorg/readTheOrg_local.setup
+
 * JDBC
 简单介绍下JDBC的定义，如下（摘自百度百科）：
 
