@@ -1,4 +1,4 @@
-#+TITLE: [[file:java_DB.org][Java DB load balance 设计]]
+#+TITLE: Java DB loadBalance 设计
 #+SETUPFILE: ../theme/readtheorg/readTheOrg_local.setup
 
 * JDBC
@@ -112,8 +112,18 @@ public class MyDataSource implements DataSource {
 #+END_SRC
 
 然后用自己的DataSource替换c3p0后用单元测试可以正常工作。
-* TODO 读写分离及分库分表设计
+* 读写分离及分库分表设计
+首先读写分离肯定会有多个数据源，所以需要先获取到主从库的配置信息比如，w，r1，r2.w为主库，r1,r2为从库，并且建立了3个数据源wds,rds1,rds2。
+为了方便DBA修改，主从库的配置信息可以配置在远程，然后程序动态获取。
 
+接下来可以对于多个数据源做一个封装，根据SQL类型、事务是否自动提交来决定具体走哪一个数据源。封装的类图如下所示（取名参考大众点评的架构组件zebra）：
+
+[[./img/loadBalance.jpg]]
+
+GroupPrepareStatement执行的时候，会根据SQL的类型以及配置类型会选择GroupConnection中的Datasource引用，然后获取真实的connection后进行数据库操作。
+
+
+然后分库分表设计的原理也和上面类似，只是主库一般会有多个，会根据某个维度进行水平切分。执行的时候需要根据sql中的维度的值来确定具体需要选择的DataSource。
 * Footnotes
 
 [fn:3] http://blog.csdn.net/jiangwei0910410003/article/details/26143977
