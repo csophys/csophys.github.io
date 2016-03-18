@@ -4,6 +4,8 @@
 *** 2016-03-03 星期四
 **** 你好
 
+code
+
 #+BEGIN_SRC lisp
 (car '123)
 (println "nihao")
