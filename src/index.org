@@ -32,3 +32,4 @@
 * Encode
 ** [[file:java_encode.org][Java 编码]]
 * Spring
+** [[file:spring_boot_web.org][Spring Boot Web Executable Demo]]
