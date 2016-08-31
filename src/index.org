@@ -28,9 +28,7 @@
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 #+END_HTML
 
+
 * Encode
 ** [[file:java_encode.org][Java 编码]]
 * Spring
-
-
-
