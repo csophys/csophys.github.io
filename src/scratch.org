@@ -1,0 +1,16 @@
+#+SETUPFILE: ../theme/readtheorg/readTheOrg_local.setup
+* 2016
+** 2016-03 March
+*** 2016-03-03 星期四
+**** 你好
+
+code
+
+#+BEGIN_SRC lisp
+(car '123)
+(println "nihao")
+#+END_SRC
+
+src
+Entered on [2016-03-03 四 16:54]
+

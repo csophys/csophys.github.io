@@ -1,0 +1,16 @@
+# -*- mode: org; -*-
+#+EMAIL:zjsy_cs@163.com
+#+AUTHOR:陈胜 csophys
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="theme/readtheorg/htmlize.css"/>
+##+HTML_HEAD: <link rel="stylesheet" type="text/css" href="theme/readtheorg/readtheorg.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="theme/readtheorg/spacemacs.readtheorg.css"/>
+
+#+HTML_HEAD: <script src="theme/readtheorg/jquery-2.1.0.min.js"></script>
+#+HTML_HEAD: <script src="theme/readtheorg/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="theme/readtheorg/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="theme/readtheorg/readtheorg.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="theme/readtheorg/google-analysis.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="theme/readtheorg/hack.js"></script>
+
+
+

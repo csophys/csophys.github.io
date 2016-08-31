@@ -1,0 +1,115 @@
+
+#+SETUPFILE: ../theme/readtheorg/readTheOrg_local.setup
+#+TITLE:JAVA WEB 中的编码分析
+* 常见编码格式的区别
+** 为什么要编码
+** 常见编码格式
+* 需要编码的场景
+** 磁盘IO
+** 内存中
+1. 字符和字节之间的转换demo
+2. 内存字符占用字节数验证
+** 网络IO
+但是还是强烈的不建议使用操作系统的默认编码，因为这样，你的应用程序的编码格式就和运行环境绑定起来了，在跨环境下很可能出现乱码问题。
+genesys sdk 的demo 示例，怎么来解决的？
+** java 中编解码的原理
+*** 编码类图
+*** 编码时序图
+*** 各种编码格式编码后的字节数组示例
+* JAVA WEB 中涉及的编码问题
+** HTTP请求中涉及到编码的地方
+** URL中的编码
+- ServletPath和PathInfo中的中文
+- QueryString中的中文
+#+BEGIN_SRC java
+    public void service(org.apache.coyote.Request req,
+                        org.apache.coyote.Response res)
+        throws Exception {
+
+        Request request = (Request) req.getNote(ADAPTER_NOTES);
+        Response response = (Response) res.getNote(ADAPTER_NOTES);
+
+        if (request == null) {
+
+            // Create objects
+            request = connector.createRequest();
+            request.setCoyoteRequest(req);
+            response = connector.createResponse();
+            response.setCoyoteResponse(res);
+
+            // Link objects
+            request.setResponse(response);
+            response.setRequest(request);
+
+            // Set as notes
+            req.setNote(ADAPTER_NOTES, request);
+            res.setNote(ADAPTER_NOTES, response);
+
+            // Set query string encoding
+            req.getParameters().setQueryStringEncoding
+                (connector.getURIEncoding());
+
+        }
+#+END_SRC
+#+BEGIN_EXAMPLE 
+所以，结论是，queryStringEncoding编码的优先级是，第一是随contentType(设置了useBodyEncodingForURI)，第二随URIEncoding（没有设置useBodyEncodingForURI），第三则是默认编码（即没有设置contentType，设置了useBodyEncodingForURI=true）
+#+END_EXAMPLE
+
+
+#+BEGIN_SRC java
+protected void parseParameters() {
+
+        parametersParsed = true;
+
+        Parameters parameters = coyoteRequest.getParameters();
+        boolean success = false;
+        try {
+            // Set this every time in case limit has been changed via JMX
+            parameters.setLimit(getConnector().getMaxParameterCount());
+
+            // getCharacterEncoding() may have been overridden to search for
+            // hidden form field containing request encoding
+            String enc = getCharacterEncoding();
+
+            boolean useBodyEncodingForURI = connector.getUseBodyEncodingForURI();
+            if (enc != null) {
+                parameters.setEncoding(enc);
+                if (useBodyEncodingForURI) {
+                    parameters.setQueryStringEncoding(enc);
+                }
+            } else {
+                parameters.setEncoding
+                    (org.apache.coyote.Constants.DEFAULT_CHARACTER_ENCODING);
+                if (useBodyEncodingForURI) {
+                    parameters.setQueryStringEncoding
+                        (org.apache.coyote.Constants.DEFAULT_CHARACTER_ENCODING);
+                }
+            }
+
+#+END_SRC
+
+#+BEGIN_SRC xml
+    <Connector executor="tomcatThreadPool" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               port="8080" URIEncoding="UTF-8" useBodyEncodingForURI="true" compression="off" enableLookups="false" 
+               maxKeepAliveRequests="20" bufferSize="8192" connectionTimeout="5000"
+               redirectPort="8443" server="DPServer"/>
+
+#+END_SRC
+** HTTP header 中的编码
+** POST 的编码
+#+BEGIN_SRC java
+    /**
+     * Get the character encoding used for this request.
+     */
+    public String getCharacterEncoding() {
+
+        if (charEncoding != null) {
+            return charEncoding;
+        }
+
+        charEncoding = getCharsetFromContentType(getContentType());
+        return charEncoding;
+
+    }
+
+#+END_SRC
